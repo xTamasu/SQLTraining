@@ -1,0 +1,39 @@
+﻿@page "/sqltutorial"
+
+<h1>SQL-Tutorial</h1>
+
+<MemoEdit @bind-Text="@SQL"/>
+
+<button class="btn btn-primary" @onclick="Query">Start SQL Query</button>
+
+<br />
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <p style="color:red">@ErrorMessage</p>
+}
+
+@if(TableResult != null)
+{
+    <SQLTutorial.Components.SQLResultTable TableResult="TableResult"/>
+}
+
+@code {
+    private string SQL = "";
+    private TableResult TableResult;
+    private string ErrorMessage = "";
+
+    private void Query()
+    {
+        try
+        {
+            ErrorMessage = "";
+            var mysql = new SQLBridge();
+            TableResult = mysql.Query(SQL);
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+        }
+    }
+}

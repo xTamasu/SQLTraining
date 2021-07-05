@@ -1,0 +1,20 @@
+# Use root/iVE8bxvJk6u16WOhDFx36hgdRfmQBJSa as user/password credentials in adminer
+
+version: '3.1'
+
+services:
+
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: iVE8bxvJk6u16WOhDFx36hgdRfmQBJSa
+    volumes:
+    - "./scripts/busunternehmen.sql:/docker-entrypoint-initdb.d/1.sql"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080

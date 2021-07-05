@@ -1,0 +1,131 @@
+﻿<MemoEdit @bind-Text="@SQLAnswer" />
+
+<Blazorise.Bootstrap.Button Color="Color.Primary" Clicked="@Answer">Start SQL Query</Blazorise.Bootstrap.Button>
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <Blazorise.Text Color="TextColor.Danger">
+        @ErrorMessage
+    </Blazorise.Text>
+}
+
+@if (TableResultAnswer != null && TableResultSolution != null)
+{
+    <Blazorise.Button Color="Color.Info" Clicked="@triggerHidden">Zusammenklappen</Blazorise.Button>
+    @if (!hidden)
+    {
+
+        @if (showHint && !CompareTableData())
+        {
+            <Blazorise.Text>@Hint</Blazorise.Text>
+        }
+
+        @if (TableResultAnswer != null)
+        {
+            <SQLTutorial.Components.SQLResultTable TableResult="TableResultAnswer" />
+            if (TableResultSolution != null)
+            {
+                <Blazorise.Text Color="@GetCorrectAnswerColor()">@GetCorrectAnswerText()</Blazorise.Text>
+                @if (!string.IsNullOrWhiteSpace(Hint) && !CompareTableData())
+                {
+                    <Blazorise.Button Clicked="@triggerHint" Color="Color.Warning">Hinweis</Blazorise.Button>
+                }
+                <Accordion>
+                    <Collapse Visible="@collapse1Visible">
+                        <CollapseHeader>
+                            <Heading Size="HeadingSize.Is5">
+                                <Button Color="Color.Info" Clicked="@(()=>collapse1Visible = !collapse1Visible)">Zeige Korrekte Antwort</Button>
+                            </Heading>
+                        </CollapseHeader>
+                        <CollapseBody>
+                            <code>@SQLSolution</code>
+                            <SQLResultTable TableResult="TableResultSolution" />
+                        </CollapseBody>
+                    </Collapse>
+                </Accordion>
+            }
+        }
+    }
+}
+
+@code {
+
+    bool collapse1Visible = false;
+
+    [Parameter]
+    public string SQLSolution { get; set; }
+
+    [Parameter]
+    public string Hint { get; set; }
+
+    private bool showHint = false;
+    private string SQLAnswer;
+    private bool hidden = false;
+
+    private TableResult TableResultAnswer;
+    private TableResult TableResultSolution;
+
+    private string ErrorMessage;
+
+    protected override void OnInitialized()
+    {
+    }
+
+    private void Answer()
+    {
+
+        TableResultSolution = startQuery(SQLSolution);
+        TableResultAnswer = startQuery(SQLAnswer);
+    }
+
+    private void triggerHint()
+    {
+        showHint = !showHint;
+    }
+
+    private void triggerHidden()
+    {
+        hidden = !hidden;
+    }
+
+    private TableResult startQuery(string SQL)
+    {
+        try
+        {
+            ErrorMessage = "";
+            var mysql = new SQLBridge();
+            return mysql.Query(SQL);
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = ex.Message;
+            return null;
+        }
+    }
+
+    private TextColor GetCorrectAnswerColor()
+    {
+        return CompareTableData() ? TextColor.Success : TextColor.Danger;
+    }
+
+    private string GetCorrectAnswerText()
+    {
+        return CompareTableData() ? "Korrekt!" : "Falsch! Versuch es nochmal!";
+    }
+
+    private bool CompareTableData()
+    {
+        var cache = TableResultSolution.GetAllRowValues().ToList();
+        foreach (var row in TableResultAnswer.Rows)
+        {
+            foreach (var cell in row.Values)
+            {
+                if (cache.Contains(cell))
+                {
+                    cache.Remove(cell);
+                }
+            }
+        }
+        return !cache.Any();
+    }
+}

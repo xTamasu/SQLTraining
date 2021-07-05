@@ -1,0 +1,139 @@
+﻿@inherits LayoutComponentBase
+@using System.Globalization;
+@using Blazorise.Localization;
+@using Row = Blazorise.Row; 
+@using Icon = Blazorise.Icon;
+@using IconName = Blazorise.IconName; 
+@using Column = Blazorise.Column;  
+
+<Layout Sider="true">
+    <LayoutSider>
+        <LayoutSiderContent>
+            <Bar Breakpoint="Breakpoint.Desktop" NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark"
+                 Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Small">
+                <BarToggler/>
+                <BarMenu>
+                    <BarStart>
+                        <BarItem>
+                            <BarLink To="/">
+                                <BarIcon IconName="IconName.Home" /> Startseite
+                            </BarLink>
+                        </BarItem>
+                        <BarItem>
+                            <BarLink To="/about">
+                                <BarIcon IconName="IconName.QuestionCircle" /> Über
+                            </BarLink>
+                        </BarItem>
+                        <BarItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    Lektion 1
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem To="/lektion1/lernen">
+                                        <BarIcon IconName="IconName.Book" />
+                                        Lernen
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="/lektion1/üben">
+                                        <BarIcon IconName="IconName.Code" />
+                                        Üben
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarItem> <!-- Lektion 1 -->
+                        <BarItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    Lektion 2
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem To="/lektion2/lernen">
+                                        <BarIcon IconName="IconName.Book" />
+                                        Lernen
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="/lektion2/üben">
+                                        <BarIcon IconName="IconName.Code" />
+                                        Üben
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarItem> <!-- Lektion 2 -->
+                        <BarItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    Lektion 3
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem To="/lektion3/lernen">
+                                        <BarIcon IconName="IconName.Book" />
+                                        Lernen
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="/lektion3/üben">
+                                        <BarIcon IconName="IconName.Code" />
+                                        Üben
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarItem> <!-- Lektion 3 -->
+                        <BarItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    Lektion 4
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem To="/lektion4/lernen">
+                                        <BarIcon IconName="IconName.Book" />
+                                        Lernen
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="/lektion4/üben">
+                                        <BarIcon IconName="IconName.Code" />
+                                        Üben
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarItem> <!-- Lektion 4 -->
+                        <BarItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    Lektion 5
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem To="/lektion5/lernen">
+                                        <BarIcon IconName="IconName.Book" />
+                                        Lernen
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="/lektion5/üben">
+                                        <BarIcon IconName="IconName.Code" />
+                                        Üben
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarItem> <!-- Lektion 5 -->
+                        <BarItem>
+                            <BarDropdown>
+                                <BarDropdownToggle>
+                                    Lektion 6
+                                </BarDropdownToggle>
+                                <BarDropdownMenu>
+                                    <BarDropdownItem To="/lektion6/lernen">
+                                        <BarIcon IconName="IconName.Book" />
+                                        Lernen
+                                    </BarDropdownItem>
+                                    <BarDropdownItem To="/lektion6/üben">
+                                        <BarIcon IconName="IconName.Code" />
+                                        Üben
+                                    </BarDropdownItem>
+                                </BarDropdownMenu>
+                            </BarDropdown>
+                        </BarItem> <!-- Lektion 6 -->
+                    </BarStart>
+                </BarMenu>
+            </Bar>
+        </LayoutSiderContent>
+    </LayoutSider>
+    <Layout>
+        <LayoutContent Padding="Padding.Is4.OnX">
+            @Body
+        </LayoutContent>
+    </Layout>
+</Layout>

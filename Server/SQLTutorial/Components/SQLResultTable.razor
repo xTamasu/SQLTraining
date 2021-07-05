@@ -1,0 +1,31 @@
+﻿@{
+    if (TableResult != null)
+    {
+        <Table Striped="true" Bordered="true">
+            <TableHeader>
+                <TableRow>
+                    @foreach (var col in TableResult.Columns)
+                    {
+                        <TableHeaderCell>@col.Name</TableHeaderCell>
+                    }
+                </TableRow>
+            </TableHeader>
+            <TableBody>
+                @foreach (var row in TableResult.Rows)
+                {
+                    <TableRow>
+                        @foreach (var value in row.Values)
+                        {
+                            <TableRowCell>@value</TableRowCell>
+                        }
+                    </TableRow>
+                }
+            </TableBody>
+        </Table>
+    }
+}
+
+@code {
+    [Parameter]
+    public TableResult TableResult { get; set; }
+}

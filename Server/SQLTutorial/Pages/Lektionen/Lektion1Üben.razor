@@ -1,0 +1,20 @@
+﻿@page "/lektion1/üben"
+
+<h3>Lektion 1 - Üben</h3>
+
+<Blazorise.Text>Aufgabe 1) Selektiere alle Namen der Datenbank 'test'</Blazorise.Text>
+
+<SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution1" Hint="@Hinweis" />
+
+<br/>
+
+<Blazorise.Text>Aufgabe 2) Selektiere alle Farben der Datenbank 'test'</Blazorise.Text>
+
+<SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution2"/>
+
+@code {
+    private const string SQLSolution1 = "SELECT Name FROM test";
+    private const string SQLSolution2 = "SELECT Name FROM test";
+
+    private const string Hinweis = "Wir müssen alle Name(n) VON test SELEKTIEREN";
+}
