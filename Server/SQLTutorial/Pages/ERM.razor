@@ -1,0 +1,57 @@
+﻿@page "/erm"
+
+<Heading Size="HeadingSize.Is1">Datenbankmodell</Heading>
+<a target="_blank" href="/img/bus.jpg">
+    <img id="erm" class="img-fluid" src="/img/bus.jpg" />
+</a>
+
+<Alert Visible="true" Color="Color.Info">
+    <Heading Size="HeadingSize.Is2">Beschreibung der Datenbank</Heading>
+    <ul>
+        <li>
+            im Entitätstyp Fahrer stehen die persönlichen Informationen wie Name und Adresse der Busfahrer. Der Primärschlüssel ist PersonalNr.
+        </li>
+        <li>
+            im Entitätstyp Fahrt werden Daten wie Dauer oder Reiseziel der Fahrten gespeichert. Der Primärschlüssel ist FahrtNr.
+        </li>
+        <li>
+            der Entitätstyp Kunde enthält die persönlichen Informationen einzelner Kunden. Der Primärschlüssel ist KundenNr.
+        </li>
+        <li>
+            im Entitätstyp Bus gehen die Informationen der Busse wie z.B. Baujahr oder Bustyp ein. Der Primärschlüssel ist Kennzeichen.
+        </li>
+    </ul>
+
+    <p>Die beiden Entitätstypen Fahrer und Bus sind über 1:n-Beziehungen, die sowohl auf der n-Seite, als auch auf der 1-Seite obligatorisch (muss-Beziehung) sind, mit dem Entitätstyp Fahrt verbunden.</p>
+    <p>Der Entitätstyp Kunde ist über eine n:m-Beziehung, welche auch auf beiden Seiten obligatorisch ist, mit dem Entitätstyp Fahrt verbunden.</p>
+    <p>Bei einer Fahrt wird ein Bus und ein Fahrer eingesetzt.</p>
+    <p>Ein Kunde muss eine oder mehrere Fahrten gebucht haben, um in der Datenbank zu erscheinen.</p>
+</Alert>
+
+<Alert Visible="true" Color="Color.Info">
+    <Heading Size="HeadingSize.Is2">Relationenmodell der Busunternehmen-Datenbank</Heading>
+    <p>Die Umsetzung des ER-Diagramms in das Relationalmodell ergibt vier Relationen für die vier vorhandenen Entitätstypen, sowie die Relation bucht für die n:m-Beziehung.</p>
+    <p>Die beiden 1:n-Beziehungen werden durch Übernahme des Primärschlüssels der 1-Seite als Fremdschlüssel in die n-Seite optimiert.</p>
+    <ul>
+        <li>
+            Fahrer(<u>PersonalNr</u>, Name, Vorname, StraßeNr, PLZ, Ort, Telefon)
+        </li>
+        <li>
+            Fahrt(<u>FahrtNr</u>, #Kennzeichen, #PersonalNr, Datum, Preis, Dauer, Reisestart, Reiseziel)
+        </li>
+        <li>
+            Kunde(<u>KundenNr</u>, Name, Vorname, StraßeNr, PLZ, Ort, Telefon, Stammkunde)
+        </li>
+        <li>
+            Bus(<u>Kennzeichen</u>, Bustyp, Baujahr, Sitzplätze)
+        </li>
+        <li>
+            Bucht(<u>BuchtNr</u>, #FahrtNr, #KundenNr, GebuchteSitzplätze)
+        </li>
+    </ul>
+    <p>Schlüsselattribute sind unterstrichen, Fremdschlüssel durch # gekennzeichnet.</p>
+</Alert>
+
+@code {
+
+}

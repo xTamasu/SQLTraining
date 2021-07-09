@@ -26,10 +26,10 @@ USE `busunternehmen`;
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `bucht`
+-- Tabellenstruktur für Tabelle `Bucht`
 --
 
-CREATE TABLE `bucht` (
+CREATE TABLE `Bucht` (
   `BuchtNr` int(11) NOT NULL,
   `FahrtNr` int(11) NOT NULL,
   `KundenNr` int(11) NOT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE `bucht` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `bucht`
+-- Daten für Tabelle `Bucht`
 --
 
-INSERT INTO `bucht` (`BuchtNr`, `FahrtNr`, `KundenNr`, `GebuchtePlätze`) VALUES
+INSERT INTO `Bucht` (`BuchtNr`, `FahrtNr`, `KundenNr`, `GebuchtePlätze`) VALUES
 (1, 1, 3, 6),
 (2, 2, 6, 7),
 (3, 3, 2, 2),
@@ -51,10 +51,10 @@ INSERT INTO `bucht` (`BuchtNr`, `FahrtNr`, `KundenNr`, `GebuchtePlätze`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `bus`
+-- Tabellenstruktur für Tabelle `Bus`
 --
 
-CREATE TABLE `bus` (
+CREATE TABLE `Bus` (
   `Kennzeichen` varchar(128) NOT NULL,
   `Bustyp` varchar(128) NOT NULL,
   `Baujahr` smallint(6) NOT NULL,
@@ -62,10 +62,10 @@ CREATE TABLE `bus` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `bus`
+-- Daten für Tabelle `Bus`
 --
 
-INSERT INTO `bus` (`Kennzeichen`, `Bustyp`, `Baujahr`, `Sitzplätze`) VALUES
+INSERT INTO `Bus` (`Kennzeichen`, `Bustyp`, `Baujahr`, `Sitzplätze`) VALUES
 ('DA-AB 123', 'Volkswagen 7HM', 1997, 20),
 ('DA-KK 007', 'Mercedes Benz O 345', 1983, 40),
 ('F-AZ 1234', 'Mercedes Benz O 303', 2000, 50),
@@ -76,10 +76,10 @@ INSERT INTO `bus` (`Kennzeichen`, `Bustyp`, `Baujahr`, `Sitzplätze`) VALUES
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `fahrer`
+-- Tabellenstruktur für Tabelle `Fahrer`
 --
 
-CREATE TABLE `fahrer` (
+CREATE TABLE `Fahrer` (
   `Personalnummer` int(11) NOT NULL,
   `Name` varchar(128) NOT NULL,
   `Vorname` varchar(128) NOT NULL,
@@ -90,10 +90,10 @@ CREATE TABLE `fahrer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `fahrer`
+-- Daten für Tabelle `Fahrer`
 --
 
-INSERT INTO `fahrer` (`Personalnummer`, `Name`, `Vorname`, `StraßeNr`, `PLZ`, `Ort`, `Telefon`) VALUES
+INSERT INTO `Fahrer` (`Personalnummer`, `Name`, `Vorname`, `StraßeNr`, `PLZ`, `Ort`, `Telefon`) VALUES
 (1, 'Meier', 'Manfred', 'Maintalstr 5', '69546', 'Mannheim', '06958/512385'),
 (2, 'Müller', 'Doris', 'Neue Str 3', '69553', 'Erfelden', '06253/654127'),
 (3, 'Scharf', 'Wilhelm', 'Erfelderstr 136', '66659', 'Leeheim', '06157/12399'),
@@ -104,10 +104,10 @@ INSERT INTO `fahrer` (`Personalnummer`, `Name`, `Vorname`, `StraßeNr`, `PLZ`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `fahrt`
+-- Tabellenstruktur für Tabelle `Fahrt`
 --
 
-CREATE TABLE `fahrt` (
+CREATE TABLE `Fahrt` (
   `FahrtNr` int(11) NOT NULL,
   `Kennzeichen` varchar(128) NOT NULL,
   `PersonalNr` int(11) NOT NULL,
@@ -119,10 +119,10 @@ CREATE TABLE `fahrt` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `fahrt`
+-- Daten für Tabelle `Fahrt`
 --
 
-INSERT INTO `fahrt` (`FahrtNr`, `Kennzeichen`, `PersonalNr`, `Datum`, `Preis`, `Dauer`, `Reisestart`, `Reiseziel`) VALUES
+INSERT INTO `Fahrt` (`FahrtNr`, `Kennzeichen`, `PersonalNr`, `Datum`, `Preis`, `Dauer`, `Reisestart`, `Reiseziel`) VALUES
 (1, 'MA-IN 248', 2, '2013-06-21', 85.5, 50, 'Mannheim', 'Mannheim'),
 (2, 'MA-IN 248', 3, '2014-03-13', 32.5, 540, 'Bern', 'Berlin'),
 (3, 'DA-AB 123', 4, '2012-06-18', 31.95, 330, 'München', 'Dortmund'),
@@ -135,10 +135,10 @@ INSERT INTO `fahrt` (`FahrtNr`, `Kennzeichen`, `PersonalNr`, `Datum`, `Preis`, `
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `kunde`
+-- Tabellenstruktur für Tabelle `Kunde`
 --
 
-CREATE TABLE `kunde` (
+CREATE TABLE `Kunde` (
   `KundenNr` int(11) NOT NULL,
   `Name` varchar(128) NOT NULL,
   `Nachname` varchar(128) NOT NULL,
@@ -150,10 +150,10 @@ CREATE TABLE `kunde` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Daten für Tabelle `kunde`
+-- Daten für Tabelle `Kunde`
 --
 
-INSERT INTO `kunde` (`KundenNr`, `Name`, `Nachname`, `StraßeNr`, `PLZ`, `Ort`, `Telefon`, `Stammkunde`) VALUES
+INSERT INTO `Kunde` (`KundenNr`, `Name`, `Nachname`, `StraßeNr`, `PLZ`, `Ort`, `Telefon`, `Stammkunde`) VALUES
 (1, 'Nico', 'Beck', 'Am Kaiserschlag 20', '64358', 'Darmstadt', '06151/789456', 1),
 (2, 'Johannes', 'Struve', 'Von-Kettler-Str.9', '64297', 'Darmstadt-Eberstadt', '06151/123456', 0),
 (3, 'Denis', 'Pelzer', 'Erfurterstr. 29', '64372', 'Ober-Ramstadt', '06154/421237', 0),
@@ -167,37 +167,37 @@ INSERT INTO `kunde` (`KundenNr`, `Name`, `Nachname`, `StraßeNr`, `PLZ`, `Ort`, 
 --
 
 --
--- Indizes für die Tabelle `bucht`
+-- Indizes für die Tabelle `Bucht`
 --
-ALTER TABLE `bucht`
+ALTER TABLE `Bucht`
   ADD PRIMARY KEY (`BuchtNr`),
   ADD KEY `FahrtNr` (`FahrtNr`),
   ADD KEY `KundenNr` (`KundenNr`);
 
 --
--- Indizes für die Tabelle `bus`
+-- Indizes für die Tabelle `Bus`
 --
-ALTER TABLE `bus`
+ALTER TABLE `Bus`
   ADD PRIMARY KEY (`Kennzeichen`);
 
 --
--- Indizes für die Tabelle `fahrer`
+-- Indizes für die Tabelle `Fahrer`
 --
-ALTER TABLE `fahrer`
+ALTER TABLE `Fahrer`
   ADD PRIMARY KEY (`Personalnummer`);
 
 --
--- Indizes für die Tabelle `fahrt`
+-- Indizes für die Tabelle `Fahrt`
 --
-ALTER TABLE `fahrt`
+ALTER TABLE `Fahrt`
   ADD PRIMARY KEY (`FahrtNr`),
   ADD KEY `PersonalNr` (`PersonalNr`),
   ADD KEY `Kennzeichen` (`Kennzeichen`);
 
 --
--- Indizes für die Tabelle `kunde`
+-- Indizes für die Tabelle `Kunde`
 --
-ALTER TABLE `kunde`
+ALTER TABLE `Kunde`
   ADD PRIMARY KEY (`KundenNr`);
 
 --
@@ -205,21 +205,21 @@ ALTER TABLE `kunde`
 --
 
 --
--- AUTO_INCREMENT für Tabelle `fahrer`
+-- AUTO_INCREMENT für Tabelle `Fahrer`
 --
-ALTER TABLE `fahrer`
+ALTER TABLE `Fahrer`
   MODIFY `Personalnummer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT für Tabelle `fahrt`
+-- AUTO_INCREMENT für Tabelle `Fahrt`
 --
-ALTER TABLE `fahrt`
+ALTER TABLE `Fahrt`
   MODIFY `FahrtNr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT für Tabelle `kunde`
+-- AUTO_INCREMENT für Tabelle `Kunde`
 --
-ALTER TABLE `kunde`
+ALTER TABLE `Kunde`
   MODIFY `KundenNr` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
@@ -227,18 +227,18 @@ ALTER TABLE `kunde`
 --
 
 --
--- Constraints der Tabelle `bucht`
+-- Constraints der Tabelle `Bucht`
 --
-ALTER TABLE `bucht`
-  ADD CONSTRAINT `bucht_ibfk_1` FOREIGN KEY (`KundenNr`) REFERENCES `kunde` (`KundenNr`),
-  ADD CONSTRAINT `bucht_ibfk_2` FOREIGN KEY (`FahrtNr`) REFERENCES `fahrt` (`FahrtNr`);
+ALTER TABLE `Bucht`
+  ADD CONSTRAINT `bucht_ibfk_1` FOREIGN KEY (`KundenNr`) REFERENCES `Kunde` (`KundenNr`),
+  ADD CONSTRAINT `bucht_ibfk_2` FOREIGN KEY (`FahrtNr`) REFERENCES `Fahrt` (`FahrtNr`);
 
 --
--- Constraints der Tabelle `fahrt`
+-- Constraints der Tabelle `Fahrt`
 --
-ALTER TABLE `fahrt`
-  ADD CONSTRAINT `fahrt_ibfk_1` FOREIGN KEY (`Kennzeichen`) REFERENCES `bus` (`Kennzeichen`),
-  ADD CONSTRAINT `fahrt_ibfk_2` FOREIGN KEY (`PersonalNr`) REFERENCES `fahrer` (`Personalnummer`);
+ALTER TABLE `Fahrt`
+  ADD CONSTRAINT `fahrt_ibfk_1` FOREIGN KEY (`Kennzeichen`) REFERENCES `Bus` (`Kennzeichen`),
+  ADD CONSTRAINT `fahrt_ibfk_2` FOREIGN KEY (`PersonalNr`) REFERENCES `Fahrer` (`Personalnummer`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -1,0 +1,27 @@
+﻿@page "/lektion2/lernen"
+
+<h2>Lektion 2: Mathematische Ausdr&uuml;cke</h2>
+<p>&nbsp;</p>
+<h3>SQL-Tutorial</h3>
+<p>&nbsp;</p>
+<h3>Mathematische Ausdr&uuml;cke</h3>
+<p>Durch mathematische Ausdr&uuml;cke, k&ouml;nnen einfache Berechnungen durchgef&uuml;hrt werden. Hierbei handelt es sich um die Grundrechenarten (+, -, *, /).</p>
+<p>Den berechneten Ergebnisspalten k&ouml;nnen dann mit dem as-Operator Bezeichnungen gegeben werden.</p>
+<p>&nbsp;</p>
+<h3>Beispiele:</h3>
+<h4>+ Operator</h4>
+<p>Wie lange dauern die Fahrten, wenn sich die Farhzeiten um 10 Minuten verl&auml;ngern?</p>
+<p>select Reisestart, Reiseziel, Dauer+10 as L&auml;ngere_Fahrzeiten from Fahrt</p>
+<h4>- Operator</h4>
+<p>Wie lange dauern die Fahrten, wenn sich die Fahrzeiten um 10 Minuten verk&uuml;rzen?</p>
+<p>select Reisestart, Reiseziel, Dauer-10 as Verk&uuml;rzte_Fahrzeiten from Fahrt</p>
+<h4>* Operator</h4>
+<p>Wie viel Kosten die Tickets f&uuml;r jeweils 3 Personen?</p>
+<p>select Reisestart,Reiseziel, Preis*3 from Fahrt</p>
+<h4>/ Operator</h4>
+<p>Der Ticketpreis aller Fahrten wird um 10% g&uuml;nstiger, wie viel Euro betr&auml;gt die Ersparnis je Fahrt?</p>
+<p>select Reisestart,Reiseziel, Preis*10/100 /</p>
+
+@code {
+
+}

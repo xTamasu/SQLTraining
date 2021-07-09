@@ -39,6 +39,8 @@ namespace SQLTutorial
             .AddBootstrapProviders()
             .AddFontAwesomeIcons();
 
+            services.AddScoped<SessionStorage>();
+
             services.AddSingleton<WeatherForecastService>();
         }
 

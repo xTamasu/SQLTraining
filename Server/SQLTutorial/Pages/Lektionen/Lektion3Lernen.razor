@@ -1,0 +1,45 @@
+﻿@page "/lektion3/lernen"
+
+<h2>Lektion 3: Tabellen einer Datenbank verbinden - Der Join&nbsp;</h2>
+<p>&nbsp;</p>
+<h3><br />SQL-Tutorial</h3>
+<p>&nbsp;</p>
+<h3><br />INNER JOIN ... ON</h3>
+<p><br />Mit dem Join kann man zwei Tabellen aus einer Datenbank zusammenf&uuml;hren.</p>
+<p>Daf&uuml;r wird immer ein Datensatz aus der ersten mit einem Datensatz aus der zweiten Tabelle zu einem neuen Datensatz zusammengesetzt. Dies funktioniert allerdings nur, mit Datens&auml;tzen die auch zusammen geh&ouml;ren. Das bedeuetet die Tabellen m&uuml;ssen einen Prim&auml;rschl&uuml;ssel haben, der mit dem Wert des Fremdschl&uuml;ssels &uuml;bereinstimmt.</p>
+<p>&nbsp;</p>
+<h4><br />Beispiel:</h4>
+<h4><br />Zeigen Sie an, welche Fahrt welchem Bus zugeordnet wurde.&nbsp; Ein Bus kann mehrere Fahrten haben.</h4>
+<p>SELECT Bustyp, Kennzeichen, Baujahr, Reisestart, Reiseziel, FahrtKz, Datum</p>
+<p>FROM Bus</p>
+<p>INNER JOIN Fahrt ON Bus.FahrtKz = Fahrt.FahrtKz</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h4>Welcher Busfahrer f&auml;hrt die FahrtKz 5?</h4>
+<p>SELECT FahrtKz, Name, Vorname, Personalnummer</p>
+<p>FROM Fahrt</p>
+<p>INNER JOIN Fahrer ON Fahrt.Personalnummer = Fahrer.Personalnummer</p>
+<p>WHERE FahrtKz = 5</p>
+<p>&nbsp;</p>
+<h3><br />Der Doppel-Join</h3>
+<p>Wir k&ouml;nnen die drei Tabellen Fahrer, Fahrt und Bus mit einem Join zwischen Fahrer und Fahrt &uuml;ber das Schl&uuml;sselattribut PersonalNummer und einen weiteren Join zwischen Fahrt und Bus &uuml;ber das Schl&uuml;sselattribut Kennzeichen zu einer Tabelle zusammenf&uuml;hren.</p>
+<p>&nbsp;</p>
+<h4>Beispiel:</h4>
+<h4><br />Welcher Fahrer, ist welchem Bus zugeordnet? Ein Fahrer kann auch mehreren Bussen zugeordnet sein.</h4>
+<p><br />SELECT Name, Vorname, Personalnummer, FahrtKz, Bustyp, Baujahr, Kennzeichen</p>
+<p><br />FROM Fahrer</p>
+<p><br />INNER JOIN Fahrt ON Fahrer.Personalnummer = Fahrt.Personalnummer</p>
+<p><br />INNER JOIN Bus ON Fahrt.Kennzeichen = Bus.Kennzeichen</p>
+<p>&nbsp;</p>
+<h3>Der Triple-Join</h3>
+<p>Mit drei Joins k&ouml;nnen wir vier Tabellen der Busunternehmen-Datenbank verbinden.</p>
+<p>&nbsp;</p>
+<h4>Beispiel:</h4>
+<h4>Gesucht sind alle Namen (Nachname und Vorname) der Kunden, die einen Bus gebucht haben, der vor dem Jahr 2000 gebaut wurde. Zus&auml;tzlich sollen noch die Anzahl der gebuchten Pl&auml;tze und das Baujahr ausgegeben werden.</h4>
+<p>&nbsp;</p>
+<p>SELECT Nachname, Vorname, GebuchtePl&auml;tze, Baujahr <br />FROM Kunde K<br />INNER JOIN Bucht O ON O.KundenNr = K.KundenNr<br />INNER JOIN Fahrt F ON F.FahrtNr = O.FahrtNr<br />INNER JOIN Bus B ON F.Kennzeichen = B.Kennzeichen<br />WHERE Baujahr &lt; 2000<br />ORDER BY Nachname</p>
+
+@code {
+
+}

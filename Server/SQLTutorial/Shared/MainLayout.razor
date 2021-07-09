@@ -11,22 +11,31 @@
         <LayoutSiderContent>
             <Bar Breakpoint="Breakpoint.Desktop" NavigationBreakpoint="Breakpoint.Tablet" ThemeContrast="ThemeContrast.Dark"
                  Mode="BarMode.VerticalInline" CollapseMode="BarCollapseMode.Small">
-                <BarToggler/>
+                <BarToggler />
+                <BarBrand>
+                    <BarItem>
+                        <BarLink To="/">
+                            <BarIcon IconName="IconName.Code" />
+                            SQL Tutorial
+                        </BarLink>
+                    </BarItem>
+                </BarBrand>
                 <BarMenu>
                     <BarStart>
-                        <BarItem>
-                            <BarLink To="/">
-                                <BarIcon IconName="IconName.Home" /> Startseite
-                            </BarLink>
-                        </BarItem>
                         <BarItem>
                             <BarLink To="/about">
                                 <BarIcon IconName="IconName.QuestionCircle" /> Über
                             </BarLink>
                         </BarItem>
                         <BarItem>
+                            <BarLink To="/erm">
+                                <BarIcon IconName="IconName.Cloud" /> Datenbankmodell
+                            </BarLink>
+                        </BarItem>
+                        <BarItem>
                             <BarDropdown>
                                 <BarDropdownToggle>
+                                    <i class="fas b-bar-icon"><strong>1</strong></i>
                                     Lektion 1
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
@@ -44,6 +53,7 @@
                         <BarItem>
                             <BarDropdown>
                                 <BarDropdownToggle>
+                                    <i class="fas b-bar-icon"><strong>2</strong></i>
                                     Lektion 2
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
@@ -61,6 +71,7 @@
                         <BarItem>
                             <BarDropdown>
                                 <BarDropdownToggle>
+                                    <i class="fas b-bar-icon"><strong>3</strong></i>
                                     Lektion 3
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
@@ -78,6 +89,7 @@
                         <BarItem>
                             <BarDropdown>
                                 <BarDropdownToggle>
+                                    <i class="fas b-bar-icon"><strong>4</strong></i>
                                     Lektion 4
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
@@ -95,6 +107,7 @@
                         <BarItem>
                             <BarDropdown>
                                 <BarDropdownToggle>
+                                    <i class="fas b-bar-icon"><strong>5</strong></i>
                                     Lektion 5
                                 </BarDropdownToggle>
                                 <BarDropdownMenu>
@@ -109,24 +122,14 @@
                                 </BarDropdownMenu>
                             </BarDropdown>
                         </BarItem> <!-- Lektion 5 -->
-                        <BarItem>
-                            <BarDropdown>
-                                <BarDropdownToggle>
-                                    Lektion 6
-                                </BarDropdownToggle>
-                                <BarDropdownMenu>
-                                    <BarDropdownItem To="/lektion6/lernen">
-                                        <BarIcon IconName="IconName.Book" />
-                                        Lernen
-                                    </BarDropdownItem>
-                                    <BarDropdownItem To="/lektion6/üben">
-                                        <BarIcon IconName="IconName.Code" />
-                                        Üben
-                                    </BarDropdownItem>
-                                </BarDropdownMenu>
-                            </BarDropdown>
-                        </BarItem> <!-- Lektion 6 -->
                     </BarStart>
+                    <BarEnd>
+                        <BarItem>
+                            <BarLink To="/about#impressum">
+                                <BarIcon IconName="IconName.Book" /> Impressum
+                            </BarLink>
+                        </BarItem>
+                    </BarEnd>
                 </BarMenu>
             </Bar>
         </LayoutSiderContent>

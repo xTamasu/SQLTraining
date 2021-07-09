@@ -1,0 +1,48 @@
+﻿@page "/lektion5/üben"
+
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 5: Geschachtelte SELECT-Anweisungen üben</Blazorise.Heading>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 1)</Blazorise.Heading>
+    <Blazorise.Text>Geben Sie die Kennzeichen der Busse aus welche eine höhere Sitzplatzanzahl als der Durchschnittsbus haben</Blazorise.Text>
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution1" Hint="@Hinweis1" SavedAnswerGuid="@Guid.Parse("DD048C31-ADA6-4A0D-B2B5-F6D44FD36C01")" />
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 2)</Blazorise.Heading>
+    <Blazorise.Text>Welche Kunden haben schon mehr Geld durch Fahrten ausgegeben als der Durchschnitts-Kunde und wie viel?</Blazorise.Text>
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution2" Hint="@Hinweis2" SavedAnswerGuid="@Guid.Parse("8939DD4B-E2E9-4D23-8062-B1E49C9A769C")" />
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 3)</Blazorise.Heading>
+    <Blazorise.Text>Gebe alle Informationen der Busse aus welche mehr Eingenommen haben als der Durchschnittsbus und deren Einnahmen</Blazorise.Text>
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution3" Hint="@Hinweis3" SavedAnswerGuid="@Guid.Parse("8939DD4B-E2E9-4D23-8062-B1E49C9A769C")" />
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 4)</Blazorise.Heading>
+    <Blazorise.Text>Gebe alle Informationen vom Bus aus, welcher bisher das meiste Geld mit Fahrten verdient hat</Blazorise.Text>
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution4" Hint="@Hinweis4" SavedAnswerGuid="@Guid.Parse("4F517416-FB71-4D76-A9D1-7DABCCD44BE7")" />
+</div>
+
+@code {
+    private const string SQLSolution1 = "SELECT Kennzeichen\nFROM Bus\nWHERE Sitzplätze > (\n   SELECT AVG(Sitzplätze)\n   FROM Bus)";
+    private const string Hinweis1 = "Kombinieren Sie zwei SELECT-Anweisungen miteinander und vergleichen Sie die Sitzplätze mit AVG()";
+
+    private const string SQLSolution2 = "SELECT K.Name, K.Nachname, SUM(F.Preis*B.GebuchtePlätze) AS Ausgaben FROM Kunde K, Fahrt F, Bucht B\nWHERE K.KundenNr = B.KundenNr\nAND B.FahrtNr = F.FahrtNr\nAND F.Preis*B.GebuchtePlätze > (\nSELECT AVG(F.Preis*B.GebuchtePlätze)\nFROM Fahrt F, Bucht B\n)\nGROUP BY K.Name, K.Nachname";
+    private const string Hinweis2 = "";
+
+    private const string SQLSolution3 = "SELECT Bus.Kennzeichen, Bus.Bustyp, Bus.Sitzplätze, Bus.Baujahr, SUM(F.Preis*B.GebuchtePlätze) AS Einnahmen FROM Fahrt F, Bucht B, Bus\nWHERE B.FahrtNr = F.FahrtNr\nAND F.Kennzeichen = Bus.Kennzeichen\nAND F.Preis*B.GebuchtePlätze > (\n   SELECT AVG(F.Preis*B.GebuchtePlätze) FROM Fahrt F, Bucht B\n)\nGROUP BY F.Kennzeichen";
+    private const string Hinweis3 = "";
+
+    private const string SQLSolution4 = "SELECT B.Kennzeichen, B.Bustyp, B.Baujahr, B.Sitzplätze, SUM(F.Preis*Bu.GebuchtePlätze) AS Gewinn\nFROM Bus B, Fahrt F, Bucht Bu\nWHERE B.Kennzeichen = F.Kennzeichen\nAND F.FahrtNr = Bu.FahrtNr\nAND B.Kennzeichen = (\nSELECT Kennzeichen FROM Fahrt F, Bucht B\nWHERE F.FahrtNr = B.FahrtNr\nGROUP BY F.Kennzeichen\nORDER BY SUM(F.Preis*B.GebuchtePlätze) DESC\nLIMIT 1\n)\nGROUP BY F.Kennzeichen";
+    private const string Hinweis4 = "Diese Aufgabe hats in sich!\n Du musst über die Fahrt Tabelle das Kennzeichen ausgeben mit der höchsten Summe. Hierzu kannst du nach Kennzeichen Gruppieren und nach dem Preis absteigend sortieren. Wenn du nun den Gewinn der Kennzeichen ausbekommst, limitiere die Tabelle auf maximal eine Zeile.";
+
+    private const string SQLSolution5 = "SELECT MIN(Sitzplätze), MAX(Sitzplätze)\nFROM Bus";
+    private const string Hinweis5 = "Mithilfe der MIN- und MAX-Funktion können wir das Maximale oder Minmale einer Zahl ausgeben";
+
+    private const string SQLSolution6 = "SELECT DISTINCT Bustyp\nFROM Bus";
+    private const string Hinweis6 = "DISTINCT ermöglicht es doppelte Einträge zu ignorieren";
+
+}

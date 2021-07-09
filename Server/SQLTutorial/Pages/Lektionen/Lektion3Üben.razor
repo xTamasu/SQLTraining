@@ -1,0 +1,47 @@
+﻿@page "/lektion3/üben"
+
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 3 - Tabellen einer Datenbank verbinden - Der Join</Blazorise.Heading>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 1)</Blazorise.Heading>
+    <Blazorise.Text>Zeigen Sie an, welchem Fahrer welche Reise zugeordnet wurde</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution1" Hint="@Hinweis1" SavedAnswerGuid="@Guid.Parse("4A9A2EE7-30DC-45C3-B60A-4D40137F0F13")" />
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 2</Blazorise.Heading>
+    <Blazorise.Text>Welcher Bustyp (mit Baujahr) fährt die Reise nach Köln?</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution2" Hint="@Hinweis2" SavedAnswerGuid="@Guid.Parse("9551E858-7F3C-4ACC-9E84-85E26860E29B")"/>
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 3)</Blazorise.Heading>
+    <Blazorise.Text>Welcher Kunde hat eine Reise gebucht, die 24,99€ kostet?</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution3" Hint="@Hinweis3" SavedAnswerGuid="@Guid.Parse("3F45C57E-44CE-453A-AC9E-9717DF6898F8")"/>
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 4)</Blazorise.Heading>
+    <Blazorise.Text>Gebe alle Kunden aus welche bereits mit dem Busfahrer Manfred Meier (Personalnummer 0) gefahren sind</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution4" Hint="@Hinweis4" SavedAnswerGuid="@Guid.Parse("08E2801B-65F9-4A8C-AAA8-8013B20E1683")" />
+</div>
+
+@code {
+
+    private const string SQLSolution1 = "SELECT Name, Vorname, Reisestart, Reiseziel\nFROM Fahrer F\nINNER JOIN Fahrt D ON F.FahrtKz = D.FahrtKz";
+    private const string Hinweis1 = "";
+
+    private const string SQLSolution2 = "SELECT Bustyp, Baujahr\nFROM Bus B\nINNER JOIN Fahrt D ON B.FahrtKz = D.FahrtKz\nWHERE Reiseziel = 'Köln'";
+    private const string Hinweis2 = "";
+
+    private const string SQLSolution3 = "SELECT Vorname, Name\nFROM Kunde K\nINNER JOIN Bucht B ON K.KundenNr= B.KundenNr\nINNER JOIN Fahrt D ON B.FahrtKz = D.FahrtKz\nWHERE Preis = 24,99";
+    private const string Hinweis3 = "";
+
+    private const string SQLSolution4 = "SELECT K.Name, K.Nachname FROM Kunde K, Bucht B, Fahrt F, Fahrer BF\nWHERE K.KundenNr = B.KundenNr\nAND B.FahrtNr = F.FahrtNr\nAND F.PersonalNr = BF.Personalnummer\nAND BF.Personalnummer = 1";
+    private const string Hinweis4 = "";
+
+}

@@ -12,6 +12,8 @@ services:
       MYSQL_ROOT_PASSWORD: iVE8bxvJk6u16WOhDFx36hgdRfmQBJSa
     volumes:
     - "./scripts/busunternehmen.sql:/docker-entrypoint-initdb.d/1.sql"
+    ports:
+      - 3306:3306
 
   adminer:
     image: adminer

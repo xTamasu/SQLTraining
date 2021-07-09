@@ -1,35 +1,43 @@
-﻿<MemoEdit @bind-Text="@SQLAnswer" />
+﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+@inject ProtectedLocalStorage   BrowserStorage;
 
-<Blazorise.Bootstrap.Button Color="Color.Primary" Clicked="@Answer">Start SQL Query</Blazorise.Bootstrap.Button>
+<MemoEdit @bind-Text="@SQLAnswer" />
 
-@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+<Blazorise.Bootstrap.Button Color="Color.Primary" Clicked="@Answer">SQL prüfen</Blazorise.Bootstrap.Button>
+@if (!string.IsNullOrWhiteSpace(Hint))
 {
-    <Blazorise.Text Color="TextColor.Danger">
-        @ErrorMessage
-    </Blazorise.Text>
+    <Blazorise.Button Clicked="@triggerHint" Color="Color.Warning">Hinweis</Blazorise.Button>
 }
 
 @if (TableResultAnswer != null && TableResultSolution != null)
 {
-    <Blazorise.Button Color="Color.Info" Clicked="@triggerHidden">Zusammenklappen</Blazorise.Button>
+    <Blazorise.Button Color="Color.Info" Clicked="@triggerHidden"><Blazorise.Icon Name="IconName.Compress" /></Blazorise.Button>
+}
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <Blazorise.Text Color="TextColor.Danger">
+        <Blazorise.Text>@ErrorMessage</Blazorise.Text>
+    </Blazorise.Text>
+}
+
+@if (showHint)
+{
+    <Alert Color="Color.Warning" Margin="Margin.Is2.FromTop" Visible="true">
+        <Blazorise.Text Color="TextColor.Body">@Hint</Blazorise.Text>
+    </Alert>
+}
+
+@if (TableResultAnswer != null && TableResultSolution != null)
+{
     @if (!hidden)
     {
-
-        @if (showHint && !CompareTableData())
-        {
-            <Blazorise.Text>@Hint</Blazorise.Text>
-        }
-
         @if (TableResultAnswer != null)
         {
             <SQLTutorial.Components.SQLResultTable TableResult="TableResultAnswer" />
             if (TableResultSolution != null)
             {
                 <Blazorise.Text Color="@GetCorrectAnswerColor()">@GetCorrectAnswerText()</Blazorise.Text>
-                @if (!string.IsNullOrWhiteSpace(Hint) && !CompareTableData())
-                {
-                    <Blazorise.Button Clicked="@triggerHint" Color="Color.Warning">Hinweis</Blazorise.Button>
-                }
                 <Accordion>
                     <Collapse Visible="@collapse1Visible">
                         <CollapseHeader>
@@ -38,7 +46,15 @@
                             </Heading>
                         </CollapseHeader>
                         <CollapseBody>
-                            <code>@SQLSolution</code>
+                            <Alert Color="Color.Info" Visible="true">
+                                <Blazorise.Heading Size="HeadingSize.Is4">Lösung</Blazorise.Heading>
+                                <code>
+                                    @foreach (var line in SQLSolution.Split("\n"))
+                                    {
+                                        @line.Trim();<br />
+                                    }
+                                </code>
+                            </Alert>
                             <SQLResultTable TableResult="TableResultSolution" />
                         </CollapseBody>
                     </Collapse>
@@ -58,24 +74,79 @@
     [Parameter]
     public string Hint { get; set; }
 
+    [Parameter]
+    public Guid SavedAnswerGuid { get; set; }
+
     private bool showHint = false;
     private string SQLAnswer;
     private bool hidden = false;
+
+    private SessionStorage sessionStorage;
 
     private TableResult TableResultAnswer;
     private TableResult TableResultSolution;
 
     private string ErrorMessage;
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
     }
 
-    private void Answer()
+    protected async override Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender)
+        {
+            sessionStorage = await GetSessionStorage();
+            if (!SavedAnswerGuid.Equals(Guid.Empty))
+            {
+                SQLAnswer = GetSavedAnswer(SavedAnswerGuid);
+            }
+            StateHasChanged();
+        }
+    }
 
+    private async Task SetSessionStorage(SessionStorage session)
+    {
+        if (session != null)
+        {
+            var json = SessionStorage.ToJSON(session);
+            await BrowserStorage.SetAsync("sessionstorage", json);
+        }
+    }
+
+    private async Task<SessionStorage> GetSessionStorage()
+    {
+        var answer = (await BrowserStorage.GetAsync<string>("sessionstorage"));
+        if (answer.Success && !string.IsNullOrEmpty(answer.Value))
+        {
+            return SessionStorage.FromJSON(answer.Value);
+        }
+        return new SessionStorage();
+    }
+
+    private async void Answer()
+    {
+        string value;
+        if (sessionStorage == null)
+        {
+            await SetSessionStorage(new SessionStorage());
+            sessionStorage = await GetSessionStorage();
+        }
+        if (sessionStorage != null)
+        {
+            if (sessionStorage.answers.TryGetValue(SavedAnswerGuid, out value))
+            {
+                sessionStorage.answers[SavedAnswerGuid] = SQLAnswer;
+            }
+            else
+            {
+                sessionStorage.answers.Add(SavedAnswerGuid, SQLAnswer);
+            }
+            await SetSessionStorage(sessionStorage);
+        }
         TableResultSolution = startQuery(SQLSolution);
         TableResultAnswer = startQuery(SQLAnswer);
+        StateHasChanged();
     }
 
     private void triggerHint()
@@ -127,5 +198,22 @@
             }
         }
         return !cache.Any();
+    }
+
+    private string GetSavedAnswer(Guid guid)
+    {
+        try
+        {
+            if (sessionStorage != null)
+            {
+                var saved = sessionStorage.answers.GetValueOrDefault(guid);
+                return !string.IsNullOrWhiteSpace(saved) ? saved : "";
+            }
+            return "";
+        }
+        catch (Exception)
+        {
+            return "";
+        }
     }
 }

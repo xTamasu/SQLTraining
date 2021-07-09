@@ -10,7 +10,7 @@ namespace SQLTutorial
     public class SQLBridge
     {
 
-        static string connectionString = "server=localhost;user=root;database=sqltest;port=3306;";
+        static string connectionString = "server=localhost;user=busunternehmen;pwd=jäckel;database=busunternehmen;port=3306;";
         static string[] forbiddenCommands = {"delete", "update", "insert"};
 
         public TableResult Query(string query)

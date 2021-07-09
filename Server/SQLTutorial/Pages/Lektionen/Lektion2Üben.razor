@@ -1,0 +1,52 @@
+﻿@page "/lektion2/üben"
+
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 2 - Mathematische Ausdrücke üben</Blazorise.Heading>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 1)</Blazorise.Heading>
+    <Blazorise.Text>Wie viel kostet ein Ticket, wenn es eine Preiserhöhung von 15,95€ für jede Fahrt gibt?</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution1" Hint="@Hinweis1" SavedAnswerGuid="@Guid.Parse("60A43896-636D-49FC-9BAC-EAD0307828E9")" />
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 2)</Blazorise.Heading>
+    <Blazorise.Text>Wie viel kostet ein Ticket, wenn es eine Preissenkung von 3,25€ für jede Fahrt gibt?</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution2" Hint="@Hinweis2" SavedAnswerGuid="@Guid.Parse("35E80EC3-02CC-4D8D-A67E-10057125DE67")" />
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 3)</Blazorise.Heading>
+    <Blazorise.Text>Wie lange dauern die Fahrten wenn sich die Fahrzeiten verdoppeln?</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution3" Hint="@Hinweis3" SavedAnswerGuid="@Guid.Parse("1C0BA546-5875-48D0-B8AD-1E496DE381AF")"/>
+</div>
+
+<div class="lesson">
+    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 4)</Blazorise.Heading>
+    <Blazorise.Text>Der Ticketpreis aller Fahrten wird um 25% günstiger, wie viel Euro beträgt die Ersparnis für ein Ticket je Fahrt?</Blazorise.Text>
+
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution4" Hint="@Hinweis4" SavedAnswerGuid="@Guid.Parse("8343C748-BF6C-474C-B9A5-BDAB125FEF1F")"/>
+</div>
+
+@code {
+    private const string SQLSolution1 = "SELECT Reisestart, Reiseziel, Preis + 15.95 as Neupreis\nFROM Fahrt";
+    private const string Hinweis1 = "";
+
+    private const string SQLSolution2 = "SELECT Reisestart, Reiseziel, Preis - 3,25 as Neupreis\nFROM Fahrt";
+    private const string Hinweis2 = "";
+
+    private const string SQLSolution3 = "SELECT Reisestart, Reiseziel, Datum, Dauer * 2\nFROM Fahrt";
+    private const string Hinweis3 = "";
+
+    private const string SQLSolution4 = "SELECT Reisestart, Reiseziel, Preis * 10/100\nFROM Fahrt";
+    private const string Hinweis4 = "";
+
+    private const string SQLSolution5 = "SELECT MIN(Sitzplätze), MAX(Sitzplätze)\nFROM Bus";
+    private const string Hinweis5 = "Mithilfe der MIN- und MAX-Funktion können wir das Maximale oder Minmale einer Zahl ausgeben";
+
+    private const string SQLSolution6 = "SELECT DISTINCT Bustyp\nFROM Bus";
+    private const string Hinweis6 = "DISTINCT ermöglicht es doppelte Einträge zu ignorieren";
+
+}
