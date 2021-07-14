@@ -12,11 +12,26 @@ services:
       MYSQL_ROOT_PASSWORD: iVE8bxvJk6u16WOhDFx36hgdRfmQBJSa
     volumes:
     - "./scripts/busunternehmen.sql:/docker-entrypoint-initdb.d/1.sql"
+    expose:
+      - "3306"
+    networks:
+      - tutorialnetwork
+
+  tutorial:
+    build: .
     ports:
-      - 3306:3306
+      - "13000:80"
+    networks:
+      - tutorialnetwork
 
   adminer:
     image: adminer
     restart: always
     ports:
-      - 8080:8080
+      - 13001:8080
+    networks:
+      - tutorialnetwork
+
+networks:
+  tutorialnetwork:
+    name: tutorialnetwork

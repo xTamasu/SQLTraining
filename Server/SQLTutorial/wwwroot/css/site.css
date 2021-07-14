@@ -4,12 +4,39 @@ code {
     white-space: pre;
 }
 
+.code-block {
+    background-color: #1E1E1E;
+    border-radius: 5px;
+    padding-left: 25px;
+    margin: 10px;
+}
+
+.code-block code {
+    color: lightgreen;
+}
+
+.nested-code {
+    color: #ff5c93;
+}
+
 .lesson {
     background-color: whitesmoke;
     border-radius: 10px;
     border-color: black;
     padding: 10px;
     margin-bottom: 25px;
+}
+
+.img-full-width {
+    width: 100%;
+}
+
+@media only screen and (min-width: 1200px) {
+    .img-fluid-size-80 {
+        max-width: 80%;
+        height: auto;
+        margin-right: 20%;
+    }
 }
 
 #blazor-error-ui {

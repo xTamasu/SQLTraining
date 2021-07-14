@@ -32,21 +32,15 @@
 
 @code {
     private const string SQLSolution1 = "SELECT Reisestart, Reiseziel, Preis + 15.95 as Neupreis\nFROM Fahrt";
-    private const string Hinweis1 = "";
+    private const string Hinweis1 = "Addiere 15.95 zum Preis der Tabelle 'Fahrt' auf.";
 
     private const string SQLSolution2 = "SELECT Reisestart, Reiseziel, Preis - 3,25 as Neupreis\nFROM Fahrt";
-    private const string Hinweis2 = "";
+    private const string Hinweis2 = "Subtrahiere 3.25 vom Preis der Tabelle 'Fahrt' ab.";
 
     private const string SQLSolution3 = "SELECT Reisestart, Reiseziel, Datum, Dauer * 2\nFROM Fahrt";
-    private const string Hinweis3 = "";
+    private const string Hinweis3 = "Multipliziere die Dauer der Tabelle 'Fahrt' um 2.";
 
-    private const string SQLSolution4 = "SELECT Reisestart, Reiseziel, Preis * 10/100\nFROM Fahrt";
-    private const string Hinweis4 = "";
-
-    private const string SQLSolution5 = "SELECT MIN(Sitzplätze), MAX(Sitzplätze)\nFROM Bus";
-    private const string Hinweis5 = "Mithilfe der MIN- und MAX-Funktion können wir das Maximale oder Minmale einer Zahl ausgeben";
-
-    private const string SQLSolution6 = "SELECT DISTINCT Bustyp\nFROM Bus";
-    private const string Hinweis6 = "DISTINCT ermöglicht es doppelte Einträge zu ignorieren";
+    private const string SQLSolution4 = "SELECT Reisestart, Reiseziel, Preis / 100 * 75\nFROM Fahrt";
+    private const string Hinweis4 = "Dividiere den Preis der Tabelle 'Fahrt' durch 100 und danach multipliziere mit 75";
 
 }

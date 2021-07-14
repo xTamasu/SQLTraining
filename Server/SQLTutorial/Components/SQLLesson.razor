@@ -1,7 +1,8 @@
 ﻿@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-@inject ProtectedLocalStorage   BrowserStorage;
+@inject ProtectedLocalStorage BrowserStorage;
+@inject IJSRuntime jsRuntime;
 
-<MemoEdit @bind-Text="@SQLAnswer" />
+<MemoEdit FocusOut="@saveValues" @bind-Text="@SQLAnswer" />
 
 <Blazorise.Bootstrap.Button Color="Color.Primary" Clicked="@Answer">SQL prüfen</Blazorise.Bootstrap.Button>
 @if (!string.IsNullOrWhiteSpace(Hint))
@@ -112,11 +113,13 @@
             var json = SessionStorage.ToJSON(session);
             await BrowserStorage.SetAsync("sessionstorage", json);
         }
+        //await jsRuntime.InvokeAsync<string>("console.log", $"set SessionStorage - {session}");
     }
 
     private async Task<SessionStorage> GetSessionStorage()
     {
         var answer = (await BrowserStorage.GetAsync<string>("sessionstorage"));
+        //await jsRuntime.InvokeAsync<string>("console.log", $"get SessionStorage - {answer}");
         if (answer.Success && !string.IsNullOrEmpty(answer.Value))
         {
             return SessionStorage.FromJSON(answer.Value);
@@ -126,12 +129,21 @@
 
     private async void Answer()
     {
+        ErrorMessage = "";
+        await saveValues();
+        TableResultSolution = startQuery(SQLSolution);
+        TableResultAnswer = startQuery(SQLAnswer);
+        StateHasChanged();
+    }
+
+    private async Task saveValues()
+    {
         string value;
         if (sessionStorage == null)
         {
             await SetSessionStorage(new SessionStorage());
-            sessionStorage = await GetSessionStorage();
         }
+        sessionStorage = await GetSessionStorage();
         if (sessionStorage != null)
         {
             if (sessionStorage.answers.TryGetValue(SavedAnswerGuid, out value))
@@ -144,9 +156,6 @@
             }
             await SetSessionStorage(sessionStorage);
         }
-        TableResultSolution = startQuery(SQLSolution);
-        TableResultAnswer = startQuery(SQLAnswer);
-        StateHasChanged();
     }
 
     private void triggerHint()
@@ -163,13 +172,12 @@
     {
         try
         {
-            ErrorMessage = "";
             var mysql = new SQLBridge();
             return mysql.Query(SQL);
         }
         catch (Exception ex)
         {
-            ErrorMessage = ex.Message;
+            ErrorMessage = $"INTERNAL SERVER ERROR - {ex.Message}";
             return null;
         }
     }

@@ -1,17 +1,21 @@
 ﻿@page "/lektion5/lernen"
 
-<h1>Lektion 5: Geschachtelte SELECT-Anweisungen</h1>
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 5: Geschachtelte SELECT-Anweisungen</Blazorise.Heading>
 <p>Mithilfe von geschachtelten SELECT-Anweisungen k&ouml;nnen wir komplexere Abfragen erstellen und innerhalb einer SQL-Anweisung eine weitere SQL-Abfrage ausl&ouml;sen.</p>
 <p>Die geschachtelte Abfrage kann dann innerhalb einer WHERE-Klausel benutzt werden um Objekte zu vergleichen.&nbsp;</p>
 <p>So k&ouml;nnen wir z.B. die Kennzeichen der Busse mit der gr&ouml;&szlig;ten Anzahl an Sitzpl&auml;tzen ganz einfach ausgeben:</p>
-<blockquote>
-    <p>SELECT Kennzeichen<br />FROM Bus<br />WHERE Sitzpl&auml;tze = (<br />&nbsp; &nbsp;SELECT Max(Sitzpl&auml;tze)<br />FROM Bus<br />)</p>
-</blockquote>
-<p>Wenn wir nun die geschachtelte Anweisung alleine ausf&uuml;hren w&uuml;rden, w&uuml;rden wir ein Wert bekommen welcher die gr&ouml;&szlig;te Anzahl an Sitzpl&auml;tzen wiederspiegelt. Deshalb k&ouml;nnen wir die Sitzpl&auml;tze direkt damit vergleichen und somit genau das richtige Kennzeichen erhalten.</p>
+<div class="code-block">
+    <code>
+SELECT Kennzeichen<br />FROM Bus<br />WHERE Sitzpl&auml;tze = (<br /><span class="nested-code">&nbsp; &nbsp;SELECT Max(Sitzpl&auml;tze)<br />&nbsp; &nbsp;FROM Bus<br /></span>)
+    </code>
+</div>
+<p>Wenn wir nun die geschachtelte Anweisung alleine ausf&uuml;hren w&uuml;rden, w&uuml;rden wir ein Wert bekommen welcher die gr&ouml;&szlig;te Anzahl an Sitzpl&auml;tzen widerspiegelt. Deshalb k&ouml;nnen wir die Sitzpl&auml;tze direkt damit vergleichen und somit genau das richtige Kennzeichen erhalten.</p>
 <p>Bei mehreren zur&uuml;ck gelieferten Werten kann "IN" benutzt werden. Dies spiegelt eine OR-Abfrage wieder und erm&ouml;glicht mehrere Werte gleichzeitig zu vergleichen.&nbsp;</p>
-<blockquote>
-    <p>SELECT *<br />FROM Bus<br />WHERE Bustyp IN (<br />&nbsp; &nbsp;SELECT Bustyp<br />&nbsp; &nbsp;FROM Bus<br />&nbsp; &nbsp;WHERE Baujahr &lt; 2000<br />)</p>
-</blockquote>
+<div class="code-block">
+    <code>
+SELECT *<br />FROM Bus<br />WHERE Bustyp IN (<br /><span class="nested-code">&nbsp; &nbsp;SELECT Bustyp<br />&nbsp; &nbsp;FROM Bus<br />&nbsp; &nbsp;WHERE Baujahr &lt; 2000<br /></span>)
+    </code>
+</div>
 <p>Wenn in einer geschachtelten Anweisung nun mehrere Spalten vorkommen, k&ouml;nnen diese nicht mit einem direkten Operator verglichen werden, da diese keinen eindeutigen Wert haben. Deswegen d&uuml;rfen die geschachtelten Abfragen maximal eine Spalte zur&uuml;ckliefern.</p>
 
 @code {

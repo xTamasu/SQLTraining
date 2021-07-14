@@ -32,16 +32,16 @@
 
 @code {
 
-    private const string SQLSolution1 = "SELECT Name, Vorname, Reisestart, Reiseziel\nFROM Fahrer F\nINNER JOIN Fahrt D ON F.FahrtKz = D.FahrtKz";
+    private const string SQLSolution1 = "SELECT Name, Vorname, Reisestart, Reiseziel\nFROM Fahrer F\nINNER JOIN Fahrt D ON F.Personalnummer = D.PersonalNr";
     private const string Hinweis1 = "";
 
-    private const string SQLSolution2 = "SELECT Bustyp, Baujahr\nFROM Bus B\nINNER JOIN Fahrt D ON B.FahrtKz = D.FahrtKz\nWHERE Reiseziel = 'Köln'";
+    private const string SQLSolution2 = "SELECT Bustyp, Baujahr\nFROM Bus B\nINNER JOIN Fahrt D ON B.Kennzeichen = D.Kennzeichen\nWHERE Reiseziel = 'Köln'";
     private const string Hinweis2 = "";
 
-    private const string SQLSolution3 = "SELECT Vorname, Name\nFROM Kunde K\nINNER JOIN Bucht B ON K.KundenNr= B.KundenNr\nINNER JOIN Fahrt D ON B.FahrtKz = D.FahrtKz\nWHERE Preis = 24,99";
+    private const string SQLSolution3 = "SELECT Vorname, Name \nFROM Kunde K\nINNER JOIN Bucht B ON K.KundenNr = B.KundenNr\nINNER JOIN Fahrt D ON B.FahrtNr = D.FahrtNr\nWHERE Preis = 24.99";
     private const string Hinweis3 = "";
 
-    private const string SQLSolution4 = "SELECT K.Name, K.Nachname FROM Kunde K, Bucht B, Fahrt F, Fahrer BF\nWHERE K.KundenNr = B.KundenNr\nAND B.FahrtNr = F.FahrtNr\nAND F.PersonalNr = BF.Personalnummer\nAND BF.Personalnummer = 1";
+    private const string SQLSolution4 = "SELECT DISTINCT K.Vorname, K.Name FROM Kunde K, Bucht B, Fahrt F, Fahrer BF\nWHERE K.KundenNr = B.KundenNr\nAND B.FahrtNr = F.FahrtNr\nAND F.PersonalNr = BF.Personalnummer\nAND BF.Personalnummer = 1";
     private const string Hinweis4 = "";
 
 }

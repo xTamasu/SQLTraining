@@ -1,44 +1,53 @@
 ﻿@page "/lektion4/lernen"
 
-<h2>Lektion 4: Gruppierung von Daten</h2>
-<p>&nbsp;</p>
-<h3><br />SQL-Tutorial</h3>
-<p>&nbsp;</p>
-<h3><br />INNER JOIN ... ON</h3>
-<p><br />Mit dem Join kann man zwei Tabellen aus einer Datenbank zusammenf&uuml;hren.</p>
-<p>Daf&uuml;r wird immer ein Datensatz aus der ersten mit einem Datensatz aus der zweiten Tabelle zu einem neuen Datensatz zusammengesetzt. Dies funktioniert allerdings nur, mit Datens&auml;tzen die auch zusammen geh&ouml;ren. Das bedeuetet die Tabellen m&uuml;ssen einen Prim&auml;rschl&uuml;ssel haben, der mit dem Wert des Fremdschl&uuml;ssels &uuml;bereinstimmt.</p>
-<p>&nbsp;</p>
-<h4><br />Beispiel:</h4>
-<h4><br />Zeigen Sie an, welche Fahrt welchem Bus zugeordnet wurde.&nbsp; Ein Bus kann mehrere Fahrten haben.</h4>
-<p>SELECT Bustyp, Kennzeichen, Baujahr, Reisestart, Reiseziel, FahrtKz, Datum</p>
-<p>FROM Bus</p>
-<p>INNER JOIN Fahrt ON Bus.FahrtKz = Fahrt.FahrtKz</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<h4>Welcher Busfahrer f&auml;hrt die FahrtKz 5?</h4>
-<p>SELECT FahrtKz, Name, Vorname, Personalnummer</p>
-<p>FROM Fahrt</p>
-<p>INNER JOIN Fahrer ON Fahrt.Personalnummer = Fahrer.Personalnummer</p>
-<p>WHERE FahrtKz = 5</p>
-<p>&nbsp;</p>
-<h3><br />Der Doppel-Join</h3>
-<p>Wir k&ouml;nnen die drei Tabellen Fahrer, Fahrt und Bus mit einem Join zwischen Fahrer und Fahrt &uuml;ber das Schl&uuml;sselattribut PersonalNummer und einen weiteren Join zwischen Fahrt und Bus &uuml;ber das Schl&uuml;sselattribut Kennzeichen zu einer Tabelle zusammenf&uuml;hren.</p>
-<p>&nbsp;</p>
-<h4>Beispiel:</h4>
-<h4><br />Welcher Fahrer, ist welchem Bus zugeordnet? Ein Fahrer kann auch mehreren Bussen zugeordnet sein.</h4>
-<p><br />SELECT Name, Vorname, Personalnummer, FahrtKz, Bustyp, Baujahr, Kennzeichen</p>
-<p><br />FROM Fahrer</p>
-<p><br />INNER JOIN Fahrt ON Fahrer.Personalnummer = Fahrt.Personalnummer</p>
-<p><br />INNER JOIN Bus ON Fahrt.Kennzeichen = Bus.Kennzeichen</p>
-<p>&nbsp;</p>
-<h3>Der Triple-Join</h3>
-<p>Mit drei Joins k&ouml;nnen wir vier Tabellen der Busunternehmen-Datenbank verbinden.</p>
-<p>&nbsp;</p>
-<h4>Beispiel:</h4>
-<h4>Gesucht sind alle Namen (Nachname und Vorname) der Kunden, die einen Bus gebucht haben, der vor dem Jahr 2000 gebaut wurde. Zus&auml;tzlich sollen noch die Anzahl der gebuchten Pl&auml;tze und das Baujahr ausgegeben werden.</h4>
-<p>&nbsp;</p>
-<p>SELECT Nachname, Vorname, GebuchtePl&auml;tze, Baujahr <br />FROM Kunde K<br />INNER JOIN Bucht O ON O.KundenNr = K.KundenNr<br />INNER JOIN Fahrt F ON F.FahrtNr = O.FahrtNr<br />INNER JOIN Bus B ON F.Kennzeichen = B.Kennzeichen<br />WHERE Baujahr &lt; 2000<br />ORDER BY Nachname</p>
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 4: Gruppierung von Daten - GROUP BY</Blazorise.Heading>
+
+<h3>Der GROUP BY Befehl</h3>
+<p>Mit dem GROUP-BY-Befehl k&ouml;nnen Datens&auml;tze in Gruppen eingeteilt werden. Dabei wird jeder Datensatz genau einer Gruppe zugeordnet.</p>
+<div class="img-full-width">
+    <img class="img-fluid img-fluid-size-80" src="./img/GROUP_BY-sum.jpg" />
+</div>
+<small><a target="_blank" href="https://learnsql.com/blog/group-by-in-sql-explained/">Quelle: "https://learnsql.com/blog/group-by-in-sql-explained/"</a></small>
+<p>Hier sehen wir, dass die verschiedenen einzelnen Eintr&auml;ge der Tabelle nach z.B. Attributen gruppiert werden k&ouml;nnen, da diese doppelt vorkommen. So k&ouml;nnen wir nach Genre gruppieren und die Anzahl ausgeben lassen.</p>
+<div class="code-block">
+    <code>
+SELECT genre, SUM(qty) AS total
+FROM books
+GROUP BY genre;
+    </code>
+</div>
+<p>Nun sind die Daten gruppiert. Somit k&ouml;nnen wir gro&szlig;e Datenmengen zusammenfassen und analysieren.</p>
+<p>Sehr oft werden GROUP-BY Befehle genutzt, sobald verschiedene Tabellen miteinander verbunden werden via INNER JOIN bzw. WHERE-JOIN, da so erst gleiche Daten auftauchen.</p>
+<h3>Weitere Beispiele:</h3>
+<p>Wir wollen uns die Datensätze der Fahrt-Datenbank nach den Regionen gruppieren und dann die Regionen ausgeben</p>
+<div class="code-block">
+    <code>
+SELECT Reiseziel FROM Fahrt group by Reiseziel
+SELECT Reisestart, Reiseziel, SUM(dauer), AVG(preis) FROM Fahrt GROUP BY Reisestart
+    </code>
+</div>
+<div class="code-block">
+    <code>
+SELECT Reiseziel FROM Fahrt group by Reiseziel
+SELECT Reisestart, Reiseziel, SUM(dauer), AVG(preis) FROM Fahrt GROUP BY Reisestart
+    </code>
+</div>
+
+<p>Es sollen die Reisen angezeigt werden, die mehr als 50,00€ kosten.</p>
+<div class="code-block">
+    <code>
+SELECT Reisestart, Reiseziel, sum(preis) from Fahrt  group by Reisestart having sum(preis) > 50
+    </code>
+</div>
+
+<p>Geben Sie an, wie viele Plätze der Kunde mit der KundenNr.6 gebucht hat.</p>
+<div class="code-block">
+    <code>
+SELECT KundenNr, FahrtNr, SUM(GebuchtePlätze) FROM Bucht WHERE KundenNr = 6
+    </code>
+</div>
+<p>select ..., sum(...) from ... where ... > ... group by ... having sum(...) > ...</p>
+
 
 @code {
 

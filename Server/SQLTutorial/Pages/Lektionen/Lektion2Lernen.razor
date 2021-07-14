@@ -1,26 +1,41 @@
 ﻿@page "/lektion2/lernen"
 
-<h2>Lektion 2: Mathematische Ausdr&uuml;cke</h2>
-<p>&nbsp;</p>
-<h3>SQL-Tutorial</h3>
-<p>&nbsp;</p>
-<h3>Mathematische Ausdr&uuml;cke</h3>
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 2: Mathematische Ausdr&uuml;cke</Blazorise.Heading>
 <p>Durch mathematische Ausdr&uuml;cke, k&ouml;nnen einfache Berechnungen durchgef&uuml;hrt werden. Hierbei handelt es sich um die Grundrechenarten (+, -, *, /).</p>
 <p>Den berechneten Ergebnisspalten k&ouml;nnen dann mit dem as-Operator Bezeichnungen gegeben werden.</p>
-<p>&nbsp;</p>
-<h3>Beispiele:</h3>
-<h4>+ Operator</h4>
+<h2>Beispiele:</h2>
+<h3>+ Operator</h3>
+<p>Eine <strong>Addition</strong> von zwei numerischen Werten</p>
 <p>Wie lange dauern die Fahrten, wenn sich die Farhzeiten um 10 Minuten verl&auml;ngern?</p>
-<p>select Reisestart, Reiseziel, Dauer+10 as L&auml;ngere_Fahrzeiten from Fahrt</p>
-<h4>- Operator</h4>
+<div class="code-block">
+    <code>
+SELECT Reisestart, Reiseziel, Dauer+10 AS L&auml;ngere_Fahrzeiten FROM Fahrt
+    </code>
+</div>
+<h3>- Operator</h3>
+<p>Eine <strong>Subtraktion</strong> von zwei numerischen Werten</p>
 <p>Wie lange dauern die Fahrten, wenn sich die Fahrzeiten um 10 Minuten verk&uuml;rzen?</p>
-<p>select Reisestart, Reiseziel, Dauer-10 as Verk&uuml;rzte_Fahrzeiten from Fahrt</p>
-<h4>* Operator</h4>
+<div class="code-block">
+    <code>
+SELECT Reisestart, Reiseziel, Dauer-10 AS Verk&uuml;rzte_Fahrzeiten FROM Fahrt
+    </code>
+</div>
+<h3>* Operator</h3>
+<p>Eine <strong>Multiplikation</strong> von zwei numerischen Werten</p>
 <p>Wie viel Kosten die Tickets f&uuml;r jeweils 3 Personen?</p>
-<p>select Reisestart,Reiseziel, Preis*3 from Fahrt</p>
-<h4>/ Operator</h4>
+<div class="code-block">
+    <code>
+SELECT Reisestart,Reiseziel, Preis*3 FROM Fahrt
+    </code>
+</div>
+<h3>/ Operator</h3>
+<p>Eine <strong>Division</strong> von zwei numerischen Werten</p>
 <p>Der Ticketpreis aller Fahrten wird um 10% g&uuml;nstiger, wie viel Euro betr&auml;gt die Ersparnis je Fahrt?</p>
-<p>select Reisestart,Reiseziel, Preis*10/100 /</p>
+<div class="code-block">
+    <code>
+SELECT Reisestart,Reiseziel, Preis*10/100
+    </code>
+</div>
 
 @code {
 

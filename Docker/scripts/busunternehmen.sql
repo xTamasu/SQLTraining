@@ -141,7 +141,7 @@ INSERT INTO `Fahrt` (`FahrtNr`, `Kennzeichen`, `PersonalNr`, `Datum`, `Preis`, `
 CREATE TABLE `Kunde` (
   `KundenNr` int(11) NOT NULL,
   `Name` varchar(128) NOT NULL,
-  `Nachname` varchar(128) NOT NULL,
+  `Vorname` varchar(128) NOT NULL,
   `StraßeNr` varchar(128) NOT NULL,
   `PLZ` varchar(32) NOT NULL,
   `Ort` varchar(128) NOT NULL,
@@ -153,7 +153,7 @@ CREATE TABLE `Kunde` (
 -- Daten für Tabelle `Kunde`
 --
 
-INSERT INTO `Kunde` (`KundenNr`, `Name`, `Nachname`, `StraßeNr`, `PLZ`, `Ort`, `Telefon`, `Stammkunde`) VALUES
+INSERT INTO `Kunde` (`KundenNr`, `Vorname`, `Name`, `StraßeNr`, `PLZ`, `Ort`, `Telefon`, `Stammkunde`) VALUES
 (1, 'Nico', 'Beck', 'Am Kaiserschlag 20', '64358', 'Darmstadt', '06151/789456', 1),
 (2, 'Johannes', 'Struve', 'Von-Kettler-Str.9', '64297', 'Darmstadt-Eberstadt', '06151/123456', 0),
 (3, 'Denis', 'Pelzer', 'Erfurterstr. 29', '64372', 'Ober-Ramstadt', '06154/421237', 0),

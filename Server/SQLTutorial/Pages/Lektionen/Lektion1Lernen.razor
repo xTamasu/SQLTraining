@@ -1,45 +1,69 @@
 ﻿@page "/lektion1/lernen"
 
-<h2>Lektion 1: Aggregatfunktionen</h2>
-<p>&nbsp;</p>
-<h3>SQL - Tutorial</h3>
-<p>&nbsp;</p>
-<h3>Aggregatfunktionen</h3>
+<Blazorise.Heading Size="HeadingSize.Is1" Margin="Margin.Is3.FromTop">Lektion 1: Aggregatfunktionen</Blazorise.Heading>
 <p>Durch Aggregatfunktionen k&ouml;nnen statische Auswertungen numerischer Daten in einer Datenbank vorgenommenw werden. Eine Aggregatfunktion wird auf ein Attribut einer Tabelle angewendet und liefert als Ergebnis einen Zahlenwert zur&uuml;ck.</p>
-<p>&nbsp;</p>
 <h3>SUM()</h3>
 <p>SUM (=engl. f&uuml;r Summe) z&auml;hlt die aus der Abfrage resultierenden Zahlenwerte (numerischen Werte) der Spalte zusammen, auf die er angewendet wird.</p>
-<p>Tipp: Setzt man ein <strong>as</strong> hinter einen Spaltennamen kann man der Spalte einen neuen Namen geben.</p>
-<p>&nbsp;</p>
-<p>z.B.: SELECT SUM(GebuchtePl&auml;tze) AS Gesamtbuchungen FROM Bucht</p>
-<p>&nbsp;</p>
+<Blazorise.Alert Color="Color.Info" Margin="Margin.Is2.FromTop" Visible="true">
+    <p><b>Tipp:</b> Setzt man ein <strong>AS</strong> hinter einen Spaltennamen kann man der Spalte einen neuen Namen geben.</p>
+    <div class="code-block">
+        <code>
+SELECT SUM(GebuchtePl&auml;tze) <b>AS</b> Gesamtbuchungen FROM Bucht
+        </code>
+    </div>
+</Blazorise.Alert>
+<br/>
 <h3>COUNT()</h3>
 <p>COUNT (=engl. f&uuml;r Anzahl), z&auml;hlt die Anzahl der von NULL verschiedenen Werte einer Spalte in der Ergebnistabelle. Alle Datens&auml;tze z&auml;hlt man mit count(*). Sollen nur die verschiedenen Werte einer Spalte gez&auml;hlt werden, benutzt man den <strong>count(distinct</strong> <em>Spaltenname</em><strong>)</strong>.</p>
-<p>&nbsp;</p>
-<p>z.B.: SELECT COUNT(DISTINCT Sitzpl&auml;tze) FROM Bus;</p>
-<p>&nbsp;</p>
+<div class="code-block">
+    <code>
+SELECT COUNT(DISTINCT Sitzpl&auml;tze) FROM Bus
+    </code>
+</div>
+<br/>
 <h3>MIN() &amp; MAX()</h3>
 <p>MINIMUM (engl. f&uuml;r Minimum)</p>
 <p>MAXIMUM (engl. f&uuml;r Maximum)</p>
 <p>Diese Befehle benutzt man, um die kleinste/gr&ouml;&szlig;te Zahl, also das Minimum/Maximum einer Spalte zu erhalten.</p>
-<p>&nbsp;</p>
-<p>z.B.: SELECT MIN(dauer) AS k&uuml;rzeste_fahrt FROM fahrt;</p>
-<p>z.B.: SELECT MAX(dauer) AS laengste_fahrt FROM fahrt;</p>
-<p>&nbsp;</p>
-<h3><strong>AVG()</strong></h3>
+<div class="code-block">
+    <code>
+SELECT MIN(dauer) AS k&uuml;rzeste_fahrt FROM Fahrt
+    </code>
+</div>
+<div class="code-block">
+    <code>
+SELECT MAX(dauer) AS laengste_fahrt FROM Fahrt
+    </code>
+</div>
+<br/>
+<h3>AVG()</h3>
 <p>AVERAGE (engl. f&uuml;r Mittelwert) gibt uns den Mittelwert (Druchschnitt) aller Zahlenwerte einer Spalte. Dabei werden alle Eintr&auml;ge addiert und dann durch die Anzahl der Eintr&auml;ge geteilt.</p>
-<p>&nbsp;</p>
-<p>z.B.: SELECT AVG(preis) FROM fahrt;</p>
-<p>&nbsp;</p>
+<div class="code-block">
+    <code>
+SELECT AVG(preis) FROM Fahrt
+    </code>
+</div>
+<br/>
 <h3>DISTINCT-Operator</h3>
 <p>DISTINCT sorgt daf&uuml;r, dass in der Ergebnistabelle keine Eintr&auml;ge mehrfach vorkommen.</p>
-<p>&nbsp;</p>
+<div class="code-block">
+    <code>
+SELECT DISTINCT Name FROM Kunde
+    </code>
+</div>
+<br/>
 <h3>Order By-Operator</h3>
 <p>Sollen Ergebnisse nach bestimmten Kriterien sortiert ausgegeben werden, so setzt man den <strong>order</strong> <strong>by-Operator</strong> ein. Standardm&auml;&szlig;ig werden Strings in alphabetischer Reihenfolge von A bis Z sotriert und Zahlen der Gr&ouml;&szlig;e nach. Mit dem <strong>desc</strong> werden die Daten absteigend und mit <strong>asc</strong> absteigend sortiert.</p>
-<p>&nbsp;</p>
-<p>z.B.: SELECT baujahr, bustyp FROM bus ORDER BY baujahr ASC; (aufsteigend)</p>
-<p>z.B.: SELECT baujahr, bustyp FROM bus ORDER BY baujahr DESC; (absteigend)</p>
-
+<div class="code-block">
+    <code>
+SELECT Baujahr, Bustyp FROM Bus ORDER BY Baujahr ASC
+    </code>
+</div>
+<div class="code-block">
+    <code>
+SELECT Baujahr, Bustyp FROM Bus ORDER BY Baujahr DESC
+    </code>
+</div>
 
 @code {
 

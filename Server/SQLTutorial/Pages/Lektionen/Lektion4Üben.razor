@@ -4,64 +4,44 @@
 
 <div class="lesson">
     <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 1)</Blazorise.Heading>
-    <Blazorise.Text>Wie viele Kunden sind in der Datenbank vorhanden?</Blazorise.Text>
+    <Blazorise.Text>Gebe die durschnittliche Fahrzeit für jeden Busfahrer aus</Blazorise.Text>
 
-    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution1" Hint="@Hinweis1" SavedAnswerGuid="@Guid.Parse("92021063-558B-46A2-84DA-D13A5E7A5787")" />
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution1" Hint="@Hinweis1" SavedAnswerGuid="@Guid.Parse("0630B7FA-4F02-40B4-9B49-046E21ACDB2E")" />
 </div>
 
 <div class="lesson">
     <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 2)</Blazorise.Heading>
-    <Blazorise.Text>Wie viel Euro haben alle Busfahrten insgesamt bisher gekostet?</Blazorise.Text>
+    <Blazorise.Text>Gebe die Anzahl individueller Reiseziele und das Kennzeichen von jedem Bus aus</Blazorise.Text>
 
-    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution2" Hint="@Hinweis2" SavedAnswerGuid="@Guid.Parse("4A9A2EE7-30DC-45C3-B60A-4D40137F0F13")" />
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution2" Hint="@Hinweis2" SavedAnswerGuid="@Guid.Parse("9AB4FBA7-BE51-4849-8E71-FCCA1AE85A41")" />
 </div>
 
 <div class="lesson">
     <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 3)</Blazorise.Heading>
-    <Blazorise.Text>Wieviele Sitzplätze hat der Kunde mit KundenNr 6 schon insgesamt gebucht?</Blazorise.Text>
+    <Blazorise.Text>Gebe die insgesamt Gebuchten Plätze, Fahrtnummern und das Datum der Fahrten aus welche insgesamt fünf oder mehr gebuchte Plätze hatten</Blazorise.Text>
 
-    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution3" Hint="@Hinweis3" SavedAnswerGuid="@Guid.Parse("9551E858-7F3C-4ACC-9E84-85E26860E29B")"/>
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution3" Hint="@Hinweis3" SavedAnswerGuid="@Guid.Parse("B285AACD-18B4-4105-9F46-E23F94AAFF5A")"/>
 </div>
 
 <div class="lesson">
     <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 4)</Blazorise.Heading>
-    <Blazorise.Text>Was kostet eine Fahrt für eine Person im Durchschnitt?</Blazorise.Text>
+    <Blazorise.Text>Gebe den Vor- und Nachnamen aus welcher die meisten Sitzplätze insgesamt gebucht hat</Blazorise.Text>
 
-    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution4" Hint="@Hinweis4" SavedAnswerGuid="@Guid.Parse("F94C5B42-90D4-45B5-A157-AA5AE4CB2465")"/>
-</div>
-
-<div class="lesson">
-    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 5)</Blazorise.Heading>
-    <Blazorise.Text>Wieviele Sitze hat der größte Bus und kleinste Bus?</Blazorise.Text>
-
-    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution5" Hint="@Hinweis5" SavedAnswerGuid="@Guid.Parse("A260A86D-FDB8-4B5C-913C-9AD119D4F4BA")" />
-</div>
-
-<div class="lesson">
-    <Blazorise.Heading Size="HeadingSize.Is3" Margin="Margin.Is2.FromTop">Aufgabe 6)</Blazorise.Heading>
-    <Blazorise.Text>Gebe alle Bustypen ohne doppelte Einträge aus</Blazorise.Text>
-
-    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution6" Hint="@Hinweis6" SavedAnswerGuid="@Guid.Parse("4AB16073-42ED-48D2-A83A-D6A899F77B42")"/>
+    <SQLTutorial.Components.SQLLesson SQLSolution="@SQLSolution4" Hint="@Hinweis4" SavedAnswerGuid="@Guid.Parse("FB085A8E-1F0F-4958-A7B0-750A9D2CD386")"/>
 </div>
 
 
 @code {
-    private const string SQLSolution1 = "SELECT COUNT(KundenNr)\n FROM Kunde";
-    private const string Hinweis1 = "Mithilfe der COUNT-Funktion können wir alle KundenNr zählen";
+    private const string SQLSolution1 = "SELECT FA.Name, FA.Vorname, AVG(F.Dauer)\nFROM Fahrt F, Fahrer FA\nWHERE FA.Personalnummer = F.PersonalNr\nGROUP BY PersonalNr";
+    private const string Hinweis1 = "";
 
-    private const string SQLSolution2 = "SELECT SUM(Preis)\n FROM Fahrt";
-    private const string Hinweis2 = "Mithilfe der SUM-Funktion können Zahlen wie z.B. Preise gezählt werden";
+    private const string SQLSolution2 = "SELECT B.Kennzeichen, COUNT(DISTINCT Reiseziel) AS Individuelle_Reiseziele\nFROM Fahrt F, Bus B\nWHERE F.Kennzeichen = B.Kennzeichen\nGROUP BY B.Kennzeichen";
+    private const string Hinweis2 = "";
 
-    private const string SQLSolution3 = "SELECT SUM(GebuchtePlätze)\nFROM Bucht\nWHERE KundenNr = 6";
-    private const string Hinweis3 = "Kombiniere die SUM-Funktion mit der WHERE-Klausel";
+    private const string SQLSolution3 = "SELECT SUM(B.GebuchtePlätze) AS Gebuchte_Plätze, F.FahrtNr, F.Datum\nFROM Fahrt F, Bucht B\nWHERE F.FahrtNr = B.FahrtNr\nGROUP BY FahrtNr\nHAVING SUM(B.GebuchtePlätze) >= 5";
+    private const string Hinweis3 = "";
 
-    private const string SQLSolution4 = "SELECT AVG(Preis)\nFROM Fahrt";
-    private const string Hinweis4 = "Mithilfe der AVG-Funktion können wir den Durchschnitt einer Zahl ausgeben";
-
-    private const string SQLSolution5 = "SELECT MIN(Sitzplätze), MAX(Sitzplätze)\nFROM Bus";
-    private const string Hinweis5 = "Mithilfe der MIN- und MAX-Funktion können wir das Maximale oder Minmale einer Zahl ausgeben";
-
-    private const string SQLSolution6 = "SELECT DISTINCT Bustyp\nFROM Bus";
-    private const string Hinweis6 = "DISTINCT ermöglicht es doppelte Einträge zu ignorieren";
+    private const string SQLSolution4 = "SELECT K.Name, K.Nachname, SUM(B.GebuchtePlätze)\nFROM Bucht B, Kunde K\nWHERE B.KundenNr = K.KundenNr\nGROUP BY B.KundenNr\nORDER BY SUM(B.GebuchtePlätze) DESC\nLIMIT 1";
+    private const string Hinweis4 = "";
 
 }
